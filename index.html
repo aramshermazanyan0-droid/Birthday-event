@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Արամի 25-ամյակ — հրավիրագիր</title>
+<style>
+  :root{
+    --bg:#0a1636; --panel:#112a5a; --gold:#ffd769; --gold2:#c59b00; --text:#eaf2ff; --white:#fff;
+  }
+  *{box-sizing:border-box}
+  body{margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial; background:radial-gradient(1200px 800px at 50% -200px, #1d3a86 0%, var(--bg) 55%); color:var(--text);}
+  header{max-width:980px; margin:26px auto 10px; padding:12px 16px; text-align:center; position:relative}
+  h1{font-size:clamp(24px,5vw,44px); line-height:1.14; color:var(--gold); text-shadow:0 2px 0 rgba(0,0,0,.35); margin:0 0 8px}
+  #countdown{max-width:980px; margin:8px auto 14px; padding:14px; border:1px solid rgba(255,215,0,.5); border-radius:16px;
+             background:linear-gradient(180deg, rgba(255,215,0,.07), rgba(255,215,0,.02)); font-weight:800; font-size:clamp(16px,4.2vw,28px); text-align:center; color:var(--white)}
+  .card{max-width:980px; margin:12px auto; padding:18px; background:rgba(10,22,54,.45); border:1px solid rgba(255,215,0,.25); border-radius:18px;
+        box-shadow:0 10px 26px rgba(0,0,0,.35); font-size:18px; line-height:1.7}
+  .btns{display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin:10px auto; max-width:980px}
+  button{background:linear-gradient(180deg, var(--gold), var(--gold2)); border:none; color:#0a183a; padding:10px 16px; border-radius:12px; font-weight:900; cursor:pointer;
+         box-shadow:0 6px 14px rgba(0,0,0,.35);}
+  button:active{transform:translateY(1px)}
+  .muted-tip{font-size:13px; opacity:.85; text-align:center; margin-top:-6px}
+  footer{max-width:980px; margin:22px auto 30px; text-align:center; font-size:14px; opacity:.85}
+</style>
+</head>
+<body>
+  <header>
+    <h1>Հրավեր Արամի ծննդյան 25-ամյակի տոնին 🥳</h1>
+  </header>
+
+  <div id="countdown">Հաշվարկվում է…</div>
+
+  <div class="card">
+    <p>Սիրով հրավիրում եմ Ձեզ մասնակցելու իմ ծննդյան 25-ամյակին 🎉</p>
+    <p>📅 Օր՝ 2025 թ. սեպտեմբերի 20<br/>
+       ⏰ Ժամ՝ 17:00<br/>
+       📍 Վայրը՝ «Ռոյալ» ռեստորան — Վանաձոր, Բոշյան 5</p>
+    <p>Ձեր ներկայությունը օրը կդարձնի ավելի տոնական ✨</p>
+    <p>Խնդրում եմ մասնակցությունը հաստատել մինչև սեպտեմբերի 10-ը 📌</p>
+    <p>Մի պատրաստվեք սովորական երեկոյի համար 😉 Ձեր առաջ սպասվում է ԲՈՄԲ շոու՝ շատ-շատ անակնկալներով ✨<br/>
+       Խնդրում ենք գալ մի քիչ ավելի շուտ, որ շոուն սկսենք ճիշտ ժամանակին 🕒</p>
+    <p>Սիրով սպասում եմ Ձեզ 🥂</p>
+  </div>
+
+  <div class="btns">
+    <button id="musicBtn" type="button">🎶 Միացնել երաժշտությունը</button>
+  </div>
+  <div class="muted-tip">iPhone/Android բրաուզերում երաժշտությունը կսկսվի միայն ձեր սեղմումից հետո</div>
+
+  <!-- Audio (user-gesture required on mobile) -->
+  <audio id="bgm" preload="auto" loop>
+    <source src="happy.mp3" type="audio/mpeg">
+  </audio>
+
+  <noscript>
+    <div style="max-width:980px;margin:10px auto;color:#ffd769;text-align:center;font-weight:700">
+      ⚠️ Ձեր սարքում JavaScript-ը անջատված է, այդ պատճառով հետհաշվարկը չի երեւա։ Բացեք Safari/Chrome-ում՝ միացված JavaScript-ով։
+    </div>
+  </noscript>
+
+  <footer>Կոնտակտ՝ 📞 099180920</footer>
+
+  <script>
+    // Countdown
+    const target = new Date(2025, 8, 20, 17, 0, 0); // Sep is monthIndex=8
+    const end    = new Date(2025, 8, 20, 23, 0, 0);
+    const el     = document.getElementById('countdown');
+    function pad(n){ return String(n).padStart(2,'0'); }
+    function tick(){
+      const now = new Date();
+      if(now < target){
+        const diff = target - now;
+        const d = Math.floor(diff/86400000);
+        const h = Math.floor((diff%86400000)/3600000);
+        const m = Math.floor((diff%3600000)/60000);
+        const s = Math.floor((diff%60000)/1000);
+        el.textContent = `Մնացել է ${d} օր ${pad(h)} ժ ${pad(m)} ր ${pad(s)} վ`;
+      } else if (now <= end){
+        el.textContent = 'Տոնն ընթացքի մեջ է 🎉';
+      } else {
+        el.textContent = 'Տոնը ավարտվեց 🙏';
+      }
+    }
+    tick(); setInterval(tick, 1000);
+
+    // Music toggle
+    const audio = document.getElementById('bgm');
+    const btn   = document.getElementById('musicBtn');
+    let playing = false;
+    btn.addEventListener('click', async () => {
+      try{
+        if(!playing){ await audio.play(); playing = true; btn.textContent = '⏸️ Անջատել երաժշտությունը'; }
+        else{ audio.pause(); playing = false; btn.textContent = '🎶 Միացնել երաժշտությունը'; }
+      }catch(e){
+        alert('Երաժշտությունը չի կարող երգել առանց ձեր սեղմման կամ թույլտվության։');
+      }
+    });
+  </script>
+</body>
+</html>
